@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".DashboardActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -35,33 +35,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-        <TextView
-            android:id="@+id/studentIDText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:text="Student ID"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameText" />
-        <TextView
-            android:id="@+id/studentIDText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:text="Student ID"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameText" />
 
         <TextView
             android:id="@+id/emailText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="8dp"
             android:text="Student Email"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintHorizontal_bias="0.0"
@@ -94,7 +74,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:onClick="onCoursesClick">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -108,6 +89,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:text="My Courses"
+
                         android:textSize="24sp"
                         app:fontFamily="@font/poppins" />
 
@@ -125,7 +107,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:onClick="onEnrollClick">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -139,6 +122,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:text="Enroll"
+
                         android:textSize="24sp"
                         app:fontFamily="@font/poppins" />
 
@@ -168,7 +152,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:onClick="onAnnounceClick">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -182,6 +167,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:text="Announcement"
+
                         android:textSize="22sp"
                         app:fontFamily="@font/poppins" />
 
@@ -199,7 +185,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:onClick="onAssignmentClick">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -213,6 +200,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:text="Assignment"
+
                         android:textSize="22sp"
                         app:fontFamily="@font/poppins" />
 
@@ -241,7 +229,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:onClick="onProfileClick">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -254,8 +243,9 @@
                         android:layout_below="@id/cycle"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="TBA"
-                        android:textSize="24sp"
+                        android:text="Update Profile"
+
+                        android:textSize="22sp"
                         app:fontFamily="@font/poppins" />
 
                     <ImageView
@@ -264,7 +254,7 @@
                         android:layout_height="75dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
-                        app:srcCompat="@null" />
+                        app:srcCompat="@mipmap/ic_launcher_resume_foreground" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -272,11 +262,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:onClick="onLogoutClick">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    >
 
                     <TextView
                         android:id="@+id/textView9"
@@ -285,7 +277,8 @@
                         android:layout_below="@id/airplane"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="Update Profile"
+                        android:text="Logout"
+
                         android:textSize="20sp"
                         app:fontFamily="@font/poppins" />
 
@@ -295,7 +288,7 @@
                         android:layout_height="75dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
-                        app:srcCompat="@mipmap/ic_launcher_resume_foreground" />
+                        app:srcCompat="@mipmap/ic_launcher_logout_foreground" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>

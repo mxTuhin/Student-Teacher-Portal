@@ -4,12 +4,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -56,9 +72,48 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     public void onRegisterClick(){
         System.out.println(student_name.getText()+" "+email.getText()+" "+cell_no.getText()+" "+password.getText());
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
-//        overridePendingTransition(R.anim.slide_in_right,R.anim.stay);
+        if(!TextUtils.isEmpty(email.getText().toString().trim()) && !TextUtils.isEmpty(password.getText().toString().trim())){
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.registerURL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try{
+                        JSONObject obj = new JSONObject(response);
+                        if(obj.getString("status").equalsIgnoreCase("success")){
+                            StaticVars.name = student_name.getText().toString().trim();
+                            StaticVars.email = email.getText().toString().trim();
+                            Intent intent = new Intent(RegisterActivity.this, DashboardActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            Toast.makeText(RegisterActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(RegisterActivity.this, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<>();
+                    data.put("email", email.getText().toString().trim());
+                    data.put("password", password.getText().toString().trim());
+                    data.put("name", student_name.getText().toString().trim());
+                    data.put("cell_no", cell_no.getText().toString().trim());
+                    data.put("user", userIdentifier);
+                    return data;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            requestQueue.add(stringRequest);
+        }else{
+            Toast.makeText(this, "Field Empty", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void onClickListenrs(){
@@ -73,12 +128,12 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         selectedItem = i;
-        if(i==1){
-            userIdentifier = "Student";
-        }else if(i==2){
-            userIdentifier = "Teacher";
+        if(i==0){
+            userIdentifier = "student";
+        }else if(i==1){
+            userIdentifier = "teacher";
         }else{
-            userIdentifier = "Admin";
+            userIdentifier = "admin";
         }
     }
 
